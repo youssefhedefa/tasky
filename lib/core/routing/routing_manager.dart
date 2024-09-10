@@ -3,6 +3,7 @@ import 'package:tasky/core/routing/custom_page_route.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
 import 'package:tasky/features/on_boarding/presentation/on_boarding_view.dart';
 import 'package:tasky/features/resistration/presentation/forms/log_in_form.dart';
+import 'package:tasky/features/resistration/presentation/forms/sign_up.dart';
 
 class AppRoutingManager {
   Route? onGenerateRoute(RouteSettings settings) {
@@ -16,8 +17,8 @@ class AppRoutingManager {
         );
       case AppRoutingConstances.signup:
         return CustomPageRoute(
-          child: const Scaffold(),
-          axisDirection: AxisDirection.right,
+          child: const SignUpForm(),
+          axisDirection: AxisDirection.left,
         );
       default:
         return null;

@@ -8,6 +8,15 @@ abstract class AppTextStyleHelper{
     fontWeight: FontWeight.bold,
   );
 
+  static TextStyle font14MediumBlack = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle font14RegularBlack = TextStyle(
+    fontSize: 14.sp,
+  );
+
   static TextStyle font14RegularGrey = TextStyle(
     fontSize: 14.sp,
     color: AppColorHelper.greyColor,

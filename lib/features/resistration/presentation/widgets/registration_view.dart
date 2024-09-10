@@ -10,10 +10,10 @@ class RegistrationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            const Expanded(child: OnBoardingImage()),
-            form,
+        child: CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(child: OnBoardingImage()),
+            SliverToBoxAdapter(child: form),
           ],
         ),
       ),

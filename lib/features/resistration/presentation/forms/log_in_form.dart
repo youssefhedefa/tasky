@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tasky/core/components/custom_button.dart';
 import 'package:tasky/core/components/custom_text_input_field.dart';
 import 'package:tasky/core/helpers/text_style_helper.dart';
+import 'package:tasky/core/routing/routing_constances.dart';
 import 'package:tasky/features/resistration/presentation/widgets/registration_footer.dart';
 import 'package:tasky/features/resistration/presentation/widgets/registration_view.dart';
 
@@ -70,7 +71,10 @@ class _LogInFormState extends State<LogInForm> {
             RegistrationFooter(
               notClickable: 'Don\'t have an account?',
               clickable: 'Sign Up here',
-              onPressed: () {},
+              onPressed: () {
+                // navigate to sign up page
+                Navigator.pushNamed(context, AppRoutingConstances.signup);
+              },
             ),
           ],
         ),
