@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/core/di/di.dart';
 import 'package:tasky/core/routing/custom_page_route.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
+import 'package:tasky/features/home/presentation/home_view.dart';
 import 'package:tasky/features/on_boarding/presentation/on_boarding_view.dart';
 import 'package:tasky/features/registration/presentation/forms/log_in_form.dart';
 import 'package:tasky/features/registration/presentation/forms/sign_up.dart';
@@ -29,6 +30,11 @@ class AppRoutingManager {
               child: const SignUpForm(),
           ),
           axisDirection: AxisDirection.left,
+        );
+      case AppRoutingConstances.home:
+        return CustomPageRoute(
+          axisDirection: AxisDirection.left,
+          child: const HomeView(),
         );
       default:
         return null;

@@ -108,7 +108,7 @@ class _LogInFormState extends State<LogInForm> {
                 },
                 listener: (context,state){
                   if(state is LogInSuccessState){
-                    //Navigator.pushNamed(context, AppRoutingConstances.onboarding);
+                    Navigator.pushNamedAndRemoveUntil(context, AppRoutingConstances.home, (route) => false);
                   }
                   if(state is LogInErrorState){
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));

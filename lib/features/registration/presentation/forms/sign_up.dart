@@ -153,7 +153,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   },
                   listener: (context,state){
                     if(state is SignInSuccessState){
-                      //Navigator.pushNamed(context, AppRoutingConstances.onboarding);
+                      Navigator.pushNamedAndRemoveUntil(context, AppRoutingConstances.home, (route) => false);
                     }
                     if(state is SignInErrorState){
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
