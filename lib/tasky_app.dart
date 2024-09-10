@@ -12,6 +12,10 @@ class TaskyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+      ).copyWith(
+        textTheme: ThemeData().textTheme.apply(
+              fontFamily: 'DM Sans',
+            ),
       ),
       home: const OnBoardingView(),
     );
