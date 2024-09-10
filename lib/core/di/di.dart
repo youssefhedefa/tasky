@@ -1,6 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tasky/core/networking/dio_factory.dart';
+import 'package:tasky/features/home/data/apis/home_api_services.dart';
+import 'package:tasky/features/home/data/repo_imple/home_repo_imple.dart';
+import 'package:tasky/features/home/domain/repo/home_repo.dart';
+import 'package:tasky/features/home/presentation/manager/log_out_cubit/log_out_cubit.dart';
 import 'package:tasky/features/registration/data/apis/registration_api_services.dart';
 import 'package:tasky/features/registration/data/repo_imple/registration_repo_imple.dart';
 import 'package:tasky/features/registration/domain/repo/registration_repo.dart';
@@ -13,7 +17,7 @@ void setupDependencyInjection() async {
   Dio dio = await DioFactory.getDio();
 
   // registration
-  getIt.registerFactory<RegistrationApiServices>(
+  getIt.registerLazySingleton<RegistrationApiServices>(
       () => RegistrationApiServices(dio));
 
   getIt.registerLazySingleton<RegistrationRepo>(
@@ -32,7 +36,17 @@ void setupDependencyInjection() async {
     () => LogInCubit(repo: getIt<RegistrationRepo>()),
   );
 
-  // getIt.registerFactory<SignInCubit>(() => SignInCubit(repo: getIt()));
-  // getIt.registerFactory<RegistrationRepo>(() => RegistrationRepoImple(apiServices: getIt()));
-  // getIt.registerFactory<RegistrationApiServices>(() => RegistrationApiServices(getIt()));
+  // home
+
+  getIt.registerLazySingleton<HomeApiServices>(
+      () => HomeApiServices(dio));
+
+  getIt.registerLazySingleton<HomeRepo>(
+      () => HomeRepoImple(apiServices: getIt<HomeApiServices>()),
+    );
+
+  getIt.registerFactory<LogOutCubit>(
+    () => LogOutCubit(repo: getIt<HomeRepo>()),
+  );
+
 }

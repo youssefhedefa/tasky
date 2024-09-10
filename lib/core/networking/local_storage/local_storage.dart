@@ -24,4 +24,9 @@ abstract class AppLocalSecureStorage{
     return await storage.read(key: refreshTokenKey);
   }
 
+  static Future<void> clearAll() async {
+    await storage.deleteAll();
+    await getRefreshToken();
+  }
+
 }
