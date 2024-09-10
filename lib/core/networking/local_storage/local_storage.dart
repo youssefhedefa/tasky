@@ -12,7 +12,6 @@ abstract class AppLocalSecureStorage{
   }
 
   static Future<String?> getAccessToken() async {
-    print('getting token ${await storage.read(key: accessTokenKey)}');
     return await storage.read(key: accessTokenKey);
   }
 
