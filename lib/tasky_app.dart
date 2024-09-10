@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/features/on_boarding/presentation/on_boarding_view.dart';
 
 class TaskyApp extends StatelessWidget {
   const TaskyApp({super.key});
@@ -7,11 +8,12 @@ class TaskyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tasky',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Scaffold(),
+      home: const OnBoardingView(),
     );
   }
 }
