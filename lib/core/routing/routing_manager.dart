@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tasky/core/routing/custom_page_route.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
 import 'package:tasky/features/on_boarding/presentation/on_boarding_view.dart';
+import 'package:tasky/features/resistration/presentation/forms/log_in_form.dart';
 
 class AppRoutingManager {
   Route? onGenerateRoute(RouteSettings settings) {
@@ -10,15 +11,14 @@ class AppRoutingManager {
         return MaterialPageRoute(builder: (context) => const OnBoardingView());
       case AppRoutingConstances.login:
         return CustomPageRoute(
-          child: const Scaffold(),
-          axisDirection: AxisDirection.right,
+          child: const LogInForm(),
+          axisDirection: AxisDirection.left,
         );
       case AppRoutingConstances.signup:
         return CustomPageRoute(
           child: const Scaffold(),
           axisDirection: AxisDirection.right,
         );
-
       default:
         return null;
     }

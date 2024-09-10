@@ -6,12 +6,10 @@ class OnBoardingImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Image.asset(
-        AppImageHelper.onboardingImage,
-        width: double.infinity,
-        fit: BoxFit.fill,
-      ),
+    return Image.asset(
+      AppImageHelper.onboardingImage,
+      width: double.infinity,
+      fit: BoxFit.fill,
     );
   }
 }
