@@ -3,6 +3,7 @@ import 'package:tasky/core/helpers/color_helper.dart';
 import 'package:tasky/core/helpers/text_style_helper.dart';
 import 'package:tasky/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:tasky/features/home/presentation/widgets/task_states_list.dart';
+import 'package:tasky/features/home/presentation/widgets/tasks_list.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -51,6 +52,9 @@ class HomeView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const TaskStatesList(),
+            const SizedBox(height: 16),
+            const Expanded(child: TasksList()),
+
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasky/core/components/task_states_enum.dart';
 import 'package:tasky/features/home/presentation/widgets/task_list.dart';
 
 class TaskStatesList extends StatefulWidget {
@@ -27,7 +28,7 @@ class _TaskStatesListState extends State<TaskStatesList> {
   }
 
   buildTaskState(int index) {
-    List<String> titles = ['All', 'In progress', 'Waiting', 'Finished'];
+    List<String?> titles = [taskStatesValues[TaskStatesEnum.all], taskStatesValues[TaskStatesEnum.inProgress], taskStatesValues[TaskStatesEnum.waiting], taskStatesValues[TaskStatesEnum.finished]];
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -35,7 +36,7 @@ class _TaskStatesListState extends State<TaskStatesList> {
         });
       },
       child: TaskState(
-        title: titles[index],
+        title: titles[index]!,
         isSelected: index == selectedIndex,
       ),
     );

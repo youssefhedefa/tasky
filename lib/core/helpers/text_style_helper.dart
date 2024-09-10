@@ -8,6 +8,11 @@ abstract class AppTextStyleHelper{
     fontWeight: FontWeight.bold,
   );
 
+  static TextStyle font12RegularGrey = TextStyle(
+    fontSize: 12.sp,
+    color: AppColorHelper.greyColor,
+  );
+
   static TextStyle font14MediumBlack = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
@@ -43,6 +48,11 @@ abstract class AppTextStyleHelper{
     fontSize: 16.sp,
     fontWeight: FontWeight.bold,
     color: Colors.white,
+  );
+
+  static TextStyle font16BoldBlack = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.bold,
   );
 
   static TextStyle font19BoldWhite = TextStyle(
