@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/core/components/task_states_enum.dart';
 import 'package:tasky/core/helpers/color_helper.dart';
 import 'package:tasky/core/helpers/text_style_helper.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
 import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tasks_cubit.dart';
+import 'package:tasky/features/home/presentation/manager/qr_cubit/qr_cubit.dart';
+import 'package:tasky/features/home/presentation/manager/qr_cubit/qr_states.dart';
 import 'package:tasky/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:tasky/features/home/presentation/widgets/task_states_list.dart';
 import 'package:tasky/features/home/presentation/widgets/tasks_list.dart';
@@ -17,7 +21,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   TaskStatesEnum selectedState = TaskStatesEnum.all;
 
   @override
@@ -29,7 +32,9 @@ class _HomeViewState extends State<HomeView> {
         children: [
           FloatingActionButton(
             heroTag: 'qr',
-            onPressed: (){},
+            onPressed: () {
+              qrScan();
+            },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
             ),
@@ -42,8 +47,9 @@ class _HomeViewState extends State<HomeView> {
           const SizedBox(height: 14),
           FloatingActionButton(
             heroTag: 'add',
-            onPressed: (){
-              Navigator.pushNamed(context,AppRoutingConstances.addTask).then((value) {
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutingConstances.addTask)
+                  .then((value) {
                 context.read<GetTasksCubit>().getTasks();
               });
             },
@@ -70,7 +76,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             const SizedBox(height: 16),
             TaskStatesList(
-              onTaskStateSelected: (state){
+              onTaskStateSelected: (state) {
                 print(state);
                 setState(() {
                   selectedState = state;
@@ -79,13 +85,44 @@ class _HomeViewState extends State<HomeView> {
             ),
             const SizedBox(height: 16),
             Expanded(
-                child: TasksList(
-                  state: selectedState,
-                ),
+              child: TasksList(
+                state: selectedState,
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  qrScan() async {
+    try {
+      await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666',
+        'Cancel',
+        true,
+        ScanMode.QR,
+      ).then((value) {
+        context.read<QrCubit>().generateTaskByQrCode(url: value).then((value) {
+          context.read<QrCubit>().stream.listen((state) {
+            if (state is QrSuccessState) {
+              print(state.qrData);
+              Navigator.pushNamed(
+                context,
+                AppRoutingConstances.viewTask,
+                arguments: state.qrData,
+              ).then(
+                (value) => context.read<GetTasksCubit>().getTasks(),
+              );
+            }
+          });
+        });
+      }).catchError((e) {
+        print(e);
+      });
+      // print(qrResult);
+    } on PlatformException catch (e) {
+      print(e);
+    }
   }
 }

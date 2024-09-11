@@ -13,6 +13,7 @@ import 'package:tasky/features/home/presentation/manager/edit_task_cubit/edit_ta
 import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tasks_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/log_out_cubit/log_out_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/profile_cubit/profile_cubit.dart';
+import 'package:tasky/features/home/presentation/manager/qr_cubit/qr_cubit.dart';
 import 'package:tasky/features/home/presentation/profile_view.dart';
 import 'package:tasky/features/home/presentation/task_details_view.dart';
 import 'package:tasky/features/on_boarding/presentation/on_boarding_view.dart';
@@ -48,8 +49,10 @@ class AppRoutingManager {
           child: MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => getIt<LogOutCubit>()),
+              BlocProvider(create: (context) => getIt<QrCubit>()),
               BlocProvider(
                   create: (context) => getIt<GetTasksCubit>()..getTasks()),
+
             ],
             child: const HomeView(),
           ),

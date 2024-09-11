@@ -33,6 +33,7 @@ dependencies:
   mime_type: ^1.0.1
   image_picker: ^1.0.8
   qr_flutter: ^4.1.0
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_test:
