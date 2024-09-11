@@ -11,6 +11,7 @@ import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tas
 import 'package:tasky/features/home/presentation/manager/log_out_cubit/log_out_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:tasky/features/home/presentation/profile_view.dart';
+import 'package:tasky/features/home/presentation/task_details_view.dart';
 import 'package:tasky/features/on_boarding/presentation/on_boarding_view.dart';
 import 'package:tasky/features/registration/presentation/forms/log_in_form.dart';
 import 'package:tasky/features/registration/presentation/forms/sign_up.dart';
@@ -34,7 +35,7 @@ class AppRoutingManager {
         return CustomPageRoute(
           child: BlocProvider(
             create: (context) => getIt<SignUpCubit>(),
-              child: const SignUpForm(),
+            child: const SignUpForm(),
           ),
           axisDirection: AxisDirection.left,
         );
@@ -44,9 +45,10 @@ class AppRoutingManager {
           child: MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => getIt<LogOutCubit>()),
-              BlocProvider(create: (context) => getIt<GetTasksCubit>()..getTasks()),
+              BlocProvider(
+                  create: (context) => getIt<GetTasksCubit>()..getTasks()),
             ],
-              child: const HomeView(),
+            child: const HomeView(),
           ),
         );
       case AppRoutingConstances.profile:
@@ -54,10 +56,10 @@ class AppRoutingManager {
           axisDirection: AxisDirection.left,
           child: BlocProvider(
             create: (context) => getIt<ProfileCubit>()..getProfile(),
-              child: const ProfileView(),
+            child: const ProfileView(),
           ),
         );
-        case AppRoutingConstances.addTask:
+      case AppRoutingConstances.addTask:
         return CustomPageRoute(
           axisDirection: AxisDirection.left,
           child: MultiBlocProvider(
@@ -65,8 +67,13 @@ class AppRoutingManager {
               BlocProvider(create: (context) => getIt<UploadImageCubit>()),
               BlocProvider(create: (context) => getIt<AddTaskCubit>()),
             ],
-              child: const AddTaskView(),
+            child: const AddTaskView(),
           ),
+        );
+      case AppRoutingConstances.viewTask:
+        return CustomPageRoute(
+          axisDirection: AxisDirection.left,
+          child: const TaskDetailsView(),
         );
       default:
         return null;

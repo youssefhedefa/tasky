@@ -6,6 +6,8 @@ class GetTasksInitialState extends GetTasksState{}
 
 class GetTasksLoadingState extends GetTasksState{}
 
+class GetTasksPaginationLoadingState extends GetTasksState{}
+
 class GetTasksSuccessState extends GetTasksState{
   final List<TaskEntity> tasks;
   GetTasksSuccessState({required this.tasks});

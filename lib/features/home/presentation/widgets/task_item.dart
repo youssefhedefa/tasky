@@ -18,12 +18,6 @@ class TaskItem extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Image.network(
-        //     task.imageUrl,
-        //     width: 64.w,
-        //     height: 64.h,
-        //   fit: BoxFit.fill,
-        // ),
         CachedNetworkImage(
           imageUrl: task.imageUrl,
           imageBuilder: (context, imageProvider) =>  Container(
@@ -82,7 +76,8 @@ class TaskItem extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+          },
           icon: const Icon(Icons.more_vert),
         ),
       ],
@@ -90,38 +85,36 @@ class TaskItem extends StatelessWidget {
   }
 
   priorityChecker(){
-    if(task.priority == 'low'){
-      return const PriorityFlag(
-        priority: PriorityEnum.low,
-      );
-    }
-    if(task.priority == 'medium'){
-      return const PriorityFlag(
-        priority: PriorityEnum.medium,
-      );
-    }
-    if(task.priority == 'high'){
-      return const PriorityFlag(
-        priority: PriorityEnum.high,
-      );
+    switch(task.priority){
+      case 'low':
+        return const PriorityFlag(
+          priority: PriorityEnum.low,
+        );
+      case 'medium':
+        return const PriorityFlag(
+          priority: PriorityEnum.medium,
+        );
+      case 'high':
+        return const PriorityFlag(
+          priority: PriorityEnum.high,
+        );
     }
   }
 
   stateChecker(){
-    if(task.status == 'finished'){
-      return const StateContainer(
-        taskState: TaskStatesEnum.finished,
-      );
-    }
-    if(task.status == 'in_progress'){
-      return const StateContainer(
-        taskState: TaskStatesEnum.inProgress,
-      );
-    }
-    if(task.status == 'waiting'){
-      return const StateContainer(
-        taskState: TaskStatesEnum.waiting,
-      );
+    switch(task.status){
+      case 'finished':
+        return const StateContainer(
+          taskState: TaskStatesEnum.finished,
+        );
+      case 'in_progress':
+        return const StateContainer(
+          taskState: TaskStatesEnum.inProgress,
+        );
+      case 'waiting':
+        return const StateContainer(
+          taskState: TaskStatesEnum.waiting,
+        );
     }
   }
 

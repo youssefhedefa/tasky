@@ -8,7 +8,11 @@ class GetTasksCubit extends Cubit<GetTasksState> {
   GetTasksCubit({required this.repo}) : super(GetTasksInitialState());
 
   getTasks({int? currentPage}) async {
-    emit(GetTasksLoadingState());
+    if(currentPage != null){
+      emit(GetTasksPaginationLoadingState());
+    }else{
+      emit(GetTasksLoadingState());
+    }
     final response = await repo.getTasks(page: currentPage);
     response.fold((tasks) {
       emit(GetTasksSuccessState(tasks: tasks));
