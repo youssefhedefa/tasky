@@ -4,4 +4,5 @@ abstract class AppRoutingConstances{
   static const String signup = '/signup';
   static const String home = '/home';
   static const String profile = '/profile';
+  static const String addTask = '/addTask';
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/core/di/di.dart';
 import 'package:tasky/core/routing/custom_page_route.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
+import 'package:tasky/features/home/presentation/add_task_view.dart';
 import 'package:tasky/features/home/presentation/home_view.dart';
 import 'package:tasky/features/home/presentation/manager/log_out_cubit/log_out_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/profile_cubit/profile_cubit.dart';
@@ -51,6 +52,11 @@ class AppRoutingManager {
             create: (context) => getIt<ProfileCubit>()..getProfile(),
               child: const ProfileView(),
           ),
+        );
+        case AppRoutingConstances.addTask:
+        return CustomPageRoute(
+          axisDirection: AxisDirection.left,
+          child: const AddTaskView(),
         );
       default:
         return null;

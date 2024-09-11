@@ -17,48 +17,56 @@ class ProfileView extends StatelessWidget {
       appBar: const CustomAppBar(
         title: 'Profile',
       ),
-      body: BlocBuilder<ProfileCubit,ProfileStates>(
-        builder: (context,state) {
-          if (state is ProfileLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state is ProfileFailedState) {
-            return Center(
-              child: Text(state.error),
-            );
-          }
-          if(state is ProfileSuccessState){
-            return ListView.separated(
-              padding: const EdgeInsets.all(24),
-              itemBuilder: (context, index) => ProfileContainer(
-                title: context.read<ProfileCubit>().profileList[index],
-                value: state.profileEntity.profile[context.read<ProfileCubit>().profileList[index]],
-                hasCopyButton: context.read<ProfileCubit>().profileList[index] == AppConstances.profilePhone,
-              ),
-              separatorBuilder: (context, index) => const SizedBox(height: 8,),
-              itemCount: context.read<ProfileCubit>().profileList.length,
-            );
-          }
-          return ListView.separated(
-            padding: const EdgeInsets.all(24),
-            itemBuilder: (context, index) => const ProfileContainer(
-              title: 'Name',
-              value: 'John Doe',
-              hasCopyButton: true,
-            ),
-            separatorBuilder: (context, index) => const SizedBox(height: 8,),
-            itemCount: 4,
+      body: BlocBuilder<ProfileCubit, ProfileStates>(builder: (context, state) {
+        if (state is ProfileLoadingState) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         }
-      ),
+        if (state is ProfileFailedState) {
+          return Center(
+            child: Text(state.error),
+          );
+        }
+        if (state is ProfileSuccessState) {
+          return ListView.separated(
+            padding: const EdgeInsets.all(24),
+            itemBuilder: (context, index) => ProfileContainer(
+              title: context.read<ProfileCubit>().profileList[index],
+              value: state.profileEntity
+                  .profile[context.read<ProfileCubit>().profileList[index]],
+              hasCopyButton: context.read<ProfileCubit>().profileList[index] ==
+                  AppConstances.profilePhone,
+            ),
+            separatorBuilder: (context, index) => const SizedBox(
+              height: 8,
+            ),
+            itemCount: context.read<ProfileCubit>().profileList.length,
+          );
+        }
+        return ListView.separated(
+          padding: const EdgeInsets.all(24),
+          itemBuilder: (context, index) => const ProfileContainer(
+            title: 'Name',
+            value: 'John Doe',
+            hasCopyButton: true,
+          ),
+          separatorBuilder: (context, index) => const SizedBox(
+            height: 8,
+          ),
+          itemCount: 4,
+        );
+      }),
     );
   }
 }
 
 class ProfileContainer extends StatelessWidget {
-  const ProfileContainer({super.key, required this.title, required this.value, required this.hasCopyButton});
+  const ProfileContainer(
+      {super.key,
+      required this.title,
+      required this.value,
+      required this.hasCopyButton});
 
   final String title;
   final String value;
@@ -67,7 +75,7 @@ class ProfileContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical:12),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
       decoration: BoxDecoration(
         color: const Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(10),
@@ -81,7 +89,9 @@ class ProfileContainer extends StatelessWidget {
                 title,
                 style: AppTextStyleHelper.font12MediumGrey,
               ),
-              const SizedBox(height: 4,),
+              const SizedBox(
+                height: 4,
+              ),
               Text(
                 value,
                 style: AppTextStyleHelper.font18BoldGrey,
@@ -89,22 +99,22 @@ class ProfileContainer extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          hasCopyButton ?
-              IconButton(
-                onPressed: () {
-                  Clipboard.setData(ClipboardData(text: value));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      content: Text('Copied to clipboard'),
-                    ),
-                  );
-                },
-                icon: const Icon(
-                  Icons.copy,
-                  color: AppColorHelper.primaryColor,
-                ),
-              )
+          hasCopyButton
+              ? IconButton(
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(text: value));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        content: Text('Copied to clipboard'),
+                      ),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.copy,
+                    color: AppColorHelper.primaryColor,
+                  ),
+                )
               : const SizedBox(),
         ],
       ),

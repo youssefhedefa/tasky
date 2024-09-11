@@ -34,7 +34,11 @@ class TokenInterceptor extends Interceptor {
       requestOptions.path,
       data: requestOptions.data,
       queryParameters: requestOptions.queryParameters,
-      options: options,
+      options: options.copyWith(
+        headers: {
+          'Authorization': 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+        },
+      ),
     );
   }
 

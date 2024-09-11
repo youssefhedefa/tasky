@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/core/helpers/color_helper.dart';
 import 'package:tasky/core/helpers/text_style_helper.dart';
+import 'package:tasky/core/routing/routing_constances.dart';
 import 'package:tasky/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:tasky/features/home/presentation/widgets/task_states_list.dart';
 import 'package:tasky/features/home/presentation/widgets/tasks_list.dart';
@@ -16,7 +17,8 @@ class HomeView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           FloatingActionButton(
-            onPressed: null,
+            heroTag: 'qr',
+            onPressed: (){},
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
             ),
@@ -28,7 +30,10 @@ class HomeView extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           FloatingActionButton(
-            onPressed: null,
+            heroTag: 'add',
+            onPressed: (){
+              Navigator.pushNamed(context,AppRoutingConstances.addTask);
+            },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
             ),
@@ -54,7 +59,6 @@ class HomeView extends StatelessWidget {
             const TaskStatesList(),
             const SizedBox(height: 16),
             const Expanded(child: TasksList()),
-
           ],
         ),
       ),
