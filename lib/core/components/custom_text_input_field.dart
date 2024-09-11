@@ -4,7 +4,7 @@ import 'package:tasky/core/helpers/color_helper.dart';
 
 
 class CustomTextInputField extends StatelessWidget {
-  const CustomTextInputField({super.key, required this.controller, required this.hintText, this.prefixWidget, this.suffixWidget, required this.keyboardType, this.inputFormatters, this.isObscure, this.validatorMessage});
+  const CustomTextInputField({super.key, required this.controller, required this.hintText, this.prefixWidget, this.suffixWidget, required this.keyboardType, this.inputFormatters, this.isObscure, this.validatorMessage, this.isMultiline});
 
   final TextEditingController controller;
   final String hintText;
@@ -14,6 +14,7 @@ class CustomTextInputField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final bool? isObscure;
   final String? validatorMessage;
+  final bool? isMultiline;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class CustomTextInputField extends StatelessWidget {
       controller: controller,
       inputFormatters: inputFormatters,
       obscureText: isObscure ?? false,
+      maxLines: isMultiline ?? false ? 6 : 1,
       validator: (value) {
         if (value!.isEmpty) {
           return validatorMessage ?? 'This field is required';
@@ -44,7 +46,7 @@ class CustomTextInputField extends StatelessWidget {
       borderRadius: BorderRadius.all(Radius.circular(8)),
       borderSide: BorderSide(
         color: AppColorHelper.greyColor,
-        width: 2,
+        width: 1.5,
       ),
     );
   }

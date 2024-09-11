@@ -1,11 +1,16 @@
 
+import 'package:dio/dio.dart';
+
 class Failure {
   final FailureModel failure;
 
   Failure({required this.failure});
 
   factory Failure.fromAPI(dynamic error) {
-    return Failure(failure: FailureModel.fromJson(error.response?.data));
+    if(error is DioException){
+      return Failure(failure: FailureModel.fromJson(error.response?.data));
+    }
+    return Failure(failure: FailureModel.fromJson(error));
   }
 
 }
@@ -25,3 +30,4 @@ class FailureModel {
 
   FailureModel({required this.message, required this.error, required this.statusCode});
 }
+

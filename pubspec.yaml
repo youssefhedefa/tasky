@@ -27,6 +27,13 @@ dependencies:
   logger: any  # for logging purpose
   json_annotation: any
   flutter_secure_storage: ^4.2.1
+  dotted_border: ^2.1.0
+  cached_network_image: ^3.3.1
+  mime: ^1.0.6
+  mime_type: ^1.0.1
+  image_picker: ^1.0.8
+  qr_flutter: ^4.1.0
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_test:

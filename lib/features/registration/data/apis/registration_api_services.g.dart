@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_catch_stack
-
 part of 'registration_api_services.dart';
 
 // **************************************************************************
@@ -14,6 +12,7 @@ class _RegistrationApiServices implements RegistrationApiServices {
   _RegistrationApiServices(
     this._dio, {
     this.baseUrl,
+    this.errorLogger,
   }) {
     baseUrl ??= 'https://todo.iraqsapp.com/';
   }
@@ -22,6 +21,7 @@ class _RegistrationApiServices implements RegistrationApiServices {
 
   String? baseUrl;
 
+  final ParseErrorLogger? errorLogger;
 
   @override
   Future<SignInResponseModel> signIn({required SignInRequestModel body}) async {
@@ -51,6 +51,7 @@ class _RegistrationApiServices implements RegistrationApiServices {
     try {
       _value = SignInResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
       rethrow;
     }
     return _value;
@@ -84,6 +85,7 @@ class _RegistrationApiServices implements RegistrationApiServices {
     try {
       _value = SignInResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
       rethrow;
     }
     return _value;

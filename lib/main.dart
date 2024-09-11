@@ -9,13 +9,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupDependencyInjection();
   Bloc.observer = MyBlocObserver();
+  // await AppLocalSecureStorage.clearAll();
   await checkUserLoggedIn();
   runApp(const TaskyApp());
 }
 bool isLoggedInUser = false;
 checkUserLoggedIn() async {
   final token = await AppLocalSecureStorage.getAccessToken();
-  if (token != '') {
+  if (token != '' && token != null) {
     isLoggedInUser = true;
   }
 }
