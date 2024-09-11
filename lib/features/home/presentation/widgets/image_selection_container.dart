@@ -48,11 +48,7 @@ class ImageSelectionContainer extends StatelessWidget {
                 ),
               ),
             ),
-            placeholder: (context, url) => SizedBox(
-              width: 150.w,
-              height: 150.h,
-              child: const CircularProgressIndicator(),
-            ),
+            placeholder: (context, url) => const CircularProgressIndicator(),
             errorWidget: (context, url, error) =>
             const Icon(Icons.error),
           );

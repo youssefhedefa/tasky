@@ -6,6 +6,7 @@ import 'package:tasky/features/home/data/repo_imple/home_repo_imple.dart';
 import 'package:tasky/features/home/domain/repo/home_repo.dart';
 import 'package:tasky/features/home/presentation/manager/add_task_cubit/add_task_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/add_task_cubit/upload_image_cubit/upload_image_cubit.dart';
+import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tasks_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/log_out_cubit/log_out_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:tasky/features/registration/data/apis/registration_api_services.dart';
@@ -70,6 +71,12 @@ void setupDependencyInjection() async {
 
   getIt.registerFactory<AddTaskCubit>(
     () => AddTaskCubit(repo: getIt<HomeRepo>()),
+  );
+
+  // home
+
+  getIt.registerFactory<GetTasksCubit>(
+    () => GetTasksCubit(repo: getIt<HomeRepo>()),
   );
 
 
