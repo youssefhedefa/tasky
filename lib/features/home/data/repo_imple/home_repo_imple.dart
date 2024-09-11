@@ -20,9 +20,9 @@ class HomeRepoImple extends HomeRepo {
   @override
   Future<Either<LogOutResponseModel, Failure>> logOut() async {
     try {
-      final String token = await AppLocalSecureStorage.getAccessToken() ?? '';
+      final String token = AppLocalSecureStorage.getAccessToken();
       final String refreshToken =
-          await AppLocalSecureStorage.getRefreshToken() ?? '';
+          AppLocalSecureStorage.getRefreshToken();
       print('refresh token $refreshToken token $token');
       final response = await apiServices.logOut(
           token: 'Bearer $token',

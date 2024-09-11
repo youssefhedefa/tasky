@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasky/core/components/constances.dart';
 import 'package:tasky/core/components/task_states_enum.dart';
 import 'package:tasky/core/helpers/text_style_helper.dart';
 import 'package:tasky/core/networking/api_constances.dart';
@@ -72,91 +73,97 @@ class _TaskDetailsViewState extends State<TaskDetailsView> {
           const SizedBox(width: 16),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(22.0),
-        child: BlocConsumer<EditTaskCubit, EditTaskState>(
-          builder: (context, state) {
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 200.h,
-                    width: double.infinity,
-                    child: CustomCachedImage(
-                      imageUrl: widget.task.imageUrl,
-                      height: 200.h,
-                      width: double.infinity,
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  Text(
-                    widget.task.title,
-                    style: AppTextStyleHelper.font24BoldBlack,
-                  ),
-                  Text(
-                    widget.task.description,
-                    style: AppTextStyleHelper.font14RegularGrey,
-                  ),
-                  SizedBox(height: 16.h),
-                  CustomDateShower(
-                    hasBackground: true,
-                    label: widget.task.dueDate,
-                    clickable: false,
-                    callback: (value) {
-                    },
-                  ),
-                  SizedBox(height: 16.h),
-                  CustomPriorityContainer(
-                    callback: (value) {
-                      context.read<EditTaskCubit>().editTask(
-                        id: widget.task.id,
-                        request: {'priority': value.toString().toLowerCase()},
-                      );
-                    },
-                    options: const ['Low', 'Medium', 'High'],
-                    label: widget.task.priority,
-                    hasFlagIcon: true,
-                  ),
-                  SizedBox(height: 16.h),
-                  CustomPriorityContainer(
-                    callback: (value) {
-                      context.read<EditTaskCubit>().editTask(
-                        id: widget.task.id,
-                        request: {'status': value.toString().toLowerCase()},
-                      );
-                    },
-                    options: [
-                      taskStatesValues[TaskStatesEnum.waiting]!,
-                      taskStatesValues[TaskStatesEnum.inProgress]!,
-                      taskStatesValues[TaskStatesEnum.finished]!
-                    ],
-                    label: widget.task.status,
-                    hasFlagIcon: false,
-                  ),
-                  SizedBox(height: 16.h),
-                  CustomQRGenerator(
-                    request:
-                        '${BaseApiConstances.baseUrl}todos/${widget.task.id}',
-                  ),
-                ],
-              ),
-            );
-          },
-          listener: (context, state) {
-            if (state is EditTaskLoading) {
-              showDialog(
-                  context: context,
-                  builder: (context) => const Center(
-                        child: CircularProgressIndicator(),
+      body: Center(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width > AppConstances.maxWidth ? AppConstances.maxWidth.toDouble() : double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: BlocConsumer<EditTaskCubit, EditTaskState>(
+              builder: (context, state) {
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: SizedBox(
+                          child: CustomCachedImage(
+                            imageUrl: widget.task.imageUrl,
+                            height: 400.h,
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        ),
                       ),
-              );
-            }
-            if (state is EditTaskSuccess) {
-              Navigator.of(context).pop(true);
-              Navigator.of(context).pop(true);
-            }
-          },
+                      SizedBox(height: 16.h),
+                      Text(
+                        widget.task.title,
+                        style: AppTextStyleHelper.font24BoldBlack,
+                      ),
+                      Text(
+                        widget.task.description,
+                        style: AppTextStyleHelper.font14RegularGrey,
+                      ),
+                      SizedBox(height: 16.h),
+                      CustomDateShower(
+                        hasBackground: true,
+                        label: widget.task.dueDate,
+                        clickable: false,
+                        callback: (value) {
+                        },
+                      ),
+                      SizedBox(height: 16.h),
+                      CustomPriorityContainer(
+                        callback: (value) {
+                          context.read<EditTaskCubit>().editTask(
+                            id: widget.task.id,
+                            request: {'priority': value.toString().toLowerCase()},
+                          );
+                        },
+                        options: const ['Low', 'Medium', 'High'],
+                        label: widget.task.priority,
+                        hasFlagIcon: true,
+                      ),
+                      SizedBox(height: 16.h),
+                      CustomPriorityContainer(
+                        callback: (value) {
+                          context.read<EditTaskCubit>().editTask(
+                            id: widget.task.id,
+                            request: {'status': value.toString().toLowerCase()},
+                          );
+                        },
+                        options: [
+                          taskStatesValues[TaskStatesEnum.waiting]!,
+                          taskStatesValues[TaskStatesEnum.inProgress]!,
+                          taskStatesValues[TaskStatesEnum.finished]!
+                        ],
+                        label: widget.task.status,
+                        hasFlagIcon: false,
+                      ),
+                      SizedBox(height: 16.h),
+                      CustomQRGenerator(
+                        request:
+                            '${BaseApiConstances.baseUrl}todos/${widget.task.id}',
+                      ),
+                    ],
+                  ),
+                );
+              },
+              listener: (context, state) {
+                if (state is EditTaskLoading) {
+                  showDialog(
+                      context: context,
+                      builder: (context) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                  );
+                }
+                if (state is EditTaskSuccess) {
+                  Navigator.of(context).pop(true);
+                  Navigator.of(context).pop(true);
+                }
+              },
+            ),
+          ),
         ),
       ),
     );

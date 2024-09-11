@@ -65,31 +65,33 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(22.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'My Tasks',
-              style: AppTextStyleHelper.font14BoldGrey,
-            ),
-            const SizedBox(height: 16),
-            TaskStatesList(
-              onTaskStateSelected: (state) {
-                print(state);
-                setState(() {
-                  selectedState = state;
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: TasksList(
-                state: selectedState,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(22.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'My Tasks',
+                style: AppTextStyleHelper.font14BoldGrey,
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              TaskStatesList(
+                onTaskStateSelected: (state) {
+                  print(state);
+                  setState(() {
+                    selectedState = state;
+                  });
+                },
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: TasksList(
+                  state: selectedState,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -120,7 +122,6 @@ class _HomeViewState extends State<HomeView> {
       }).catchError((e) {
         print(e);
       });
-      // print(qrResult);
     } on PlatformException catch (e) {
       print(e);
     }

@@ -12,33 +12,38 @@ class OnBoardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            const Expanded(child: OnBoardingImage()),
-            const OnBoardingText(),
-            Padding(
-              padding: const EdgeInsets.only(left: 22.0, right: 22, bottom: 40),
-              child: CustomButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(context, AppRoutingConstances.login, (route) => false);
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Get Started',
-                      style: AppTextStyleHelper.font19BoldWhite,
+        child: Center(
+          child: SizedBox(
+            width: MediaQuery.sizeOf(context).width > 400 ? 400 : MediaQuery.sizeOf(context).width,
+            child: Column(
+              children: [
+                const Expanded(child: OnBoardingImage()),
+                const OnBoardingText(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 22.0, right: 22, bottom: 40),
+                  child: CustomButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(context, AppRoutingConstances.login, (route) => false);
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Get Started',
+                          style: AppTextStyleHelper.font19BoldWhite,
+                        ),
+                        const SizedBox(width: 8),
+                        const Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 8),
-                    const Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

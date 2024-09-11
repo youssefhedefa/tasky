@@ -31,7 +31,7 @@ class _ExperienceLevelState extends State<ExperienceLevel> {
         onSelected: widget.onSelected,
         hintText: widget.hintText,
         textStyle: AppTextStyleHelper.font14MediumBlack,
-        width: MediaQuery.of(context).size.width - 48,
+        width: MediaQuery.of(context).size.width > 400 ? 352 : MediaQuery.of(context).size.width - 48,
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: AppTextStyleHelper.font14MediumBlack,
           contentPadding: const EdgeInsets.symmetric(
