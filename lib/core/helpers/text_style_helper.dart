@@ -13,6 +13,12 @@ abstract class AppTextStyleHelper{
     color: AppColorHelper.greyColor,
   );
 
+  static TextStyle font12MediumGrey = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColorHelper.greyColor,
+  );
+
   static TextStyle font14MediumBlack = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
@@ -59,6 +65,12 @@ abstract class AppTextStyleHelper{
     fontSize: 19.sp,
     fontWeight: FontWeight.bold,
     color: Colors.white,
+  );
+
+  static TextStyle font18BoldGrey = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColorHelper.greyColor,
   );
 
 }

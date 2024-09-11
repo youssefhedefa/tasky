@@ -11,7 +11,7 @@ class TokenInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    final errorCode = err.response!.statusCode;
+    final errorCode = err.response?.statusCode ?? 0;
     try{
       if (errorCode == 401) {
         print('error code 401');
