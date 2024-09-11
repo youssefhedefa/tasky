@@ -28,17 +28,16 @@ class TokenInterceptor extends Interceptor {
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
     final options = Options(
       method: requestOptions.method,
-      headers: requestOptions.headers,
+      headers: {
+        'Authorization': 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+      },
     );
     return dio.request<dynamic>(
-      requestOptions.path,
+      //requestOptions.path,
+      '${BaseApiConstances.baseUrl}${requestOptions.path}',
       data: requestOptions.data,
       queryParameters: requestOptions.queryParameters,
-      options: options.copyWith(
-        headers: {
-          'Authorization': 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
-        },
-      ),
+      options: options,
     );
   }
 

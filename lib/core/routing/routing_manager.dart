@@ -5,6 +5,8 @@ import 'package:tasky/core/routing/custom_page_route.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
 import 'package:tasky/features/home/presentation/add_task_view.dart';
 import 'package:tasky/features/home/presentation/home_view.dart';
+import 'package:tasky/features/home/presentation/manager/add_task_cubit/add_task_cubit.dart';
+import 'package:tasky/features/home/presentation/manager/add_task_cubit/upload_image_cubit/upload_image_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/log_out_cubit/log_out_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:tasky/features/home/presentation/profile_view.dart';
@@ -56,7 +58,13 @@ class AppRoutingManager {
         case AppRoutingConstances.addTask:
         return CustomPageRoute(
           axisDirection: AxisDirection.left,
-          child: const AddTaskView(),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt<UploadImageCubit>()),
+              BlocProvider(create: (context) => getIt<AddTaskCubit>()),
+            ],
+              child: const AddTaskView(),
+          ),
         );
       default:
         return null;
