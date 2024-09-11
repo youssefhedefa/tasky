@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasky/core/routing/routing_constances.dart';
 import 'package:tasky/features/home/domain/entities/task_entity.dart';
 import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tasks_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tasks_states.dart';
@@ -63,6 +64,12 @@ class _TasksListState extends State<TasksList> {
             controller: scrollController,
             itemBuilder: (context, index) => TaskItem(
               task: tasks[index],
+              onTap: (){
+                Navigator.of(context).pushNamed(
+                  AppRoutingConstances.viewTask,
+                  arguments: tasks[index],
+                ).then((value) => context.read<GetTasksCubit>().getTasks());
+              },
             ),
             separatorBuilder: (context, index) => const SizedBox(
               height: 12,
@@ -73,6 +80,9 @@ class _TasksListState extends State<TasksList> {
         return const SizedBox();
       },
       listener: (context,state) {
+        if(state is GetTasksLoadingState){
+          tasks.clear();
+        }
         if(state is GetTasksPaginationLoadingState){
           print('loading more');
         }

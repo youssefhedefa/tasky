@@ -13,5 +13,7 @@ abstract class HomeRepo{
   Future<Either<UploadImageResponseModel,Failure>> uploadImage({required FormData image});
   Future<Either<AddTaskResponseModel,Failure>> addTask({required AddTaskRequestModel model});
   Future<Either<List<TaskEntity>,Failure>> getTasks({int? page});
+  Future<Either<bool,Failure>> editTask({required String id,required Map<String,dynamic> request});
+  Future<Either<bool,Failure>> deleteTask({required String id});
 
 }

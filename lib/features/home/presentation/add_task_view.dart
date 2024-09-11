@@ -8,18 +8,12 @@ import 'package:tasky/features/home/presentation/manager/add_task_cubit/add_task
 import 'package:tasky/features/home/presentation/manager/add_task_cubit/add_task_states.dart';
 import 'package:tasky/features/home/presentation/widgets/add_task_field.dart';
 import 'package:tasky/features/home/presentation/widgets/custom_app_bar.dart';
+import 'package:tasky/features/home/presentation/widgets/custom_date_shower.dart';
+import 'package:tasky/features/home/presentation/widgets/custom_priority_widget.dart';
 import 'package:tasky/features/home/presentation/widgets/image_selection_container.dart';
 
-class AddTaskView extends StatefulWidget {
+class AddTaskView extends StatelessWidget {
   const AddTaskView({super.key});
-
-  @override
-  State<AddTaskView> createState() => _AddTaskViewState();
-}
-
-class _AddTaskViewState extends State<AddTaskView> {
-  String dropdownValue = 'Medium';
-  String date = 'choose due date...';
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +42,25 @@ class _AddTaskViewState extends State<AddTaskView> {
                     isMultiline: true,
                   ),
                   AddTaskField(
-                    label: 'Priority',
-                    input: priorityWidget(),
+                      label: 'Priority',
+                      input: CustomPriorityContainer(
+                        callback: (value) {
+                          context.read<AddTaskCubit>().priority = value;
+                        },
+                        options: const ['Low', 'Medium', 'High'],
+                        label: 'Priority',
+                        hasFlagIcon: true,
+                      ),
                   ),
                   AddTaskField(
                     label: 'Due date',
-                    input: dateShower(),
+                    input: CustomDateShower(
+                      clickable: true,
+                      hasBackground: false,
+                      callback: (value) {
+                        context.read<AddTaskCubit>().dueDate = value;
+                      },
+                    ),
                   ),
                   const SizedBox(
                     height: 16,
@@ -64,7 +71,9 @@ class _AddTaskViewState extends State<AddTaskView> {
                       style: AppTextStyleHelper.font19BoldWhite,
                     ),
                     onPressed: () {
-                      addTaskAction();
+                      addTaskAction(
+                        context: context,
+                      );
                     },
                   ),
                 ],
@@ -86,114 +95,14 @@ class _AddTaskViewState extends State<AddTaskView> {
         }
         if (state is AddTaskSuccessState) {
           context.read<AddTaskCubit>().reset();
-          Navigator.pop(context);
-          Navigator.pop(context);
+          Navigator.pop(context, true);
+          Navigator.pop(context, true);
         }
       },
     );
   }
 
-  List<DropdownMenuItem<String>> getDropdownItems() {
-    return const [
-      DropdownMenuItem(
-        value: 'Low',
-        child: Text('Low'),
-      ),
-      DropdownMenuItem(
-        value: 'Medium',
-        child: Text('Medium'),
-      ),
-      DropdownMenuItem(
-        value: 'High',
-        child: Text('High'),
-      ),
-    ];
-  }
-
-  priorityWidget() {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
-      decoration: BoxDecoration(
-        color: AppColorHelper.lightPrimaryColor,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: DropdownButton<String>(
-        items: getDropdownItems(),
-        onChanged: (value) {
-          setState(() {
-            dropdownValue = value!;
-            context.read<AddTaskCubit>().priority = value;
-          });
-        },
-        hint: Row(
-          children: [
-            const Icon(
-              Icons.flag_outlined,
-              size: 20,
-              color: AppColorHelper.primaryColor,
-            ),
-            const SizedBox(width: 8),
-            Text('$dropdownValue Priority',
-                style: AppTextStyleHelper.font16BoldPrimary),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(8),
-        underline: const SizedBox(),
-        isExpanded: true,
-        iconSize: 40,
-        iconEnabledColor: AppColorHelper.primaryColor,
-        iconDisabledColor: AppColorHelper.primaryColor,
-      ),
-    );
-  }
-
-  dateShower() {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 6.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: AppColorHelper.greyColor,
-          width: 1.5,
-        ),
-      ),
-      child: MaterialButton(
-        onPressed: () {
-          showDatePicker(
-            context: context,
-            firstDate: DateTime.now(),
-            lastDate: DateTime(2025),
-            initialDate: DateTime.now(),
-          ).then((value) {
-            if (value != null) {
-              setState(() {
-                date = '${value.day}/${value.month}/${value.year}';
-                context.read<AddTaskCubit>().dueDate = value;
-              });
-            }
-          });
-        },
-        child: Row(
-          children: [
-            Text(
-              date,
-              style: AppTextStyleHelper.font14RegularGrey,
-            ),
-            const Spacer(),
-            const Icon(
-              Icons.calendar_today_outlined,
-              size: 20,
-              color: AppColorHelper.primaryColor,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  addTaskAction() {
+  addTaskAction({required BuildContext context}) {
     context.read<AddTaskCubit>().addTask(
           image: context.read<AddTaskCubit>().image,
           title: context.read<AddTaskCubit>().title.text,

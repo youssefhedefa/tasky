@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/core/di/di.dart';
 import 'package:tasky/core/routing/custom_page_route.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
+import 'package:tasky/features/home/domain/entities/task_entity.dart';
 import 'package:tasky/features/home/presentation/add_task_view.dart';
 import 'package:tasky/features/home/presentation/home_view.dart';
 import 'package:tasky/features/home/presentation/manager/add_task_cubit/add_task_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/add_task_cubit/upload_image_cubit/upload_image_cubit.dart';
+import 'package:tasky/features/home/presentation/manager/delete_task_cubit/delete_task_cubit.dart';
+import 'package:tasky/features/home/presentation/manager/edit_task_cubit/edit_task_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tasks_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/log_out_cubit/log_out_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/profile_cubit/profile_cubit.dart';
@@ -71,9 +74,22 @@ class AppRoutingManager {
           ),
         );
       case AppRoutingConstances.viewTask:
+        TaskEntity task = settings.arguments as TaskEntity;
         return CustomPageRoute(
           axisDirection: AxisDirection.left,
-          child: const TaskDetailsView(),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<EditTaskCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<DeleteTaskCubit>(),
+              ),
+            ],
+            child: TaskDetailsView(
+              task: task,
+            ),
+          ),
         );
       default:
         return null;

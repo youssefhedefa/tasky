@@ -45,4 +45,18 @@ abstract class HomeApiServices {
     @Query('page') int? page,
   });
 
+
+  @PUT(HomeApiConstances.editTask)
+  Future<void> editTask({
+    @Header('Authorization') required String token,
+    @Path('id') required String id,
+    @Body() required Map<String,dynamic> request,
+  });
+
+  @DELETE(HomeApiConstances.editTask)
+  Future<TasksResponseModel> deleteTask({
+    @Header('Authorization') required String token,
+    @Path('id') required String id,
+  });
+
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/core/helpers/color_helper.dart';
 import 'package:tasky/core/helpers/text_style_helper.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
+import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tasks_cubit.dart';
 import 'package:tasky/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:tasky/features/home/presentation/widgets/task_states_list.dart';
 import 'package:tasky/features/home/presentation/widgets/tasks_list.dart';
@@ -32,7 +34,9 @@ class HomeView extends StatelessWidget {
           FloatingActionButton(
             heroTag: 'add',
             onPressed: (){
-              Navigator.pushNamed(context,AppRoutingConstances.addTask);
+              Navigator.pushNamed(context,AppRoutingConstances.addTask).then((value) {
+                context.read<GetTasksCubit>().getTasks();
+              });
             },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),

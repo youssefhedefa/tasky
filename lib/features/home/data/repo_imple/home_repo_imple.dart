@@ -84,4 +84,35 @@ class HomeRepoImple extends HomeRepo {
       return Right(Failure.fromAPI(e));
     }
   }
+
+  @override
+  Future<Either<bool, Failure>> editTask(
+      {required String id, required Map<String, dynamic> request}) async {
+    try {
+      await apiServices.editTask(
+          token: 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+          id: id,
+          request: request,
+      );
+      return const Left(true);
+    } catch (e) {
+      return Right(Failure.fromAPI(e));
+    }
+  }
+
+  @override
+  Future<Either<bool, Failure>> deleteTask({required String id}) async {
+    try{
+      await apiServices.deleteTask(
+          token: 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+          id: id,
+      );
+      return const Left(true);
+    }
+    catch(e){
+      return Right(Failure.fromAPI(e));
+    }
+  }
+
+
 }

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +8,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:tasky/features/home/presentation/manager/add_task_cubit/add_task_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/add_task_cubit/upload_image_cubit/upload_image_cubit.dart';
 import 'package:tasky/features/home/presentation/manager/add_task_cubit/upload_image_cubit/upload_image_states.dart';
+import 'package:tasky/features/home/presentation/widgets/cached_image.dart';
 
 class ImageSelectionContainer extends StatelessWidget {
   const ImageSelectionContainer({super.key});
@@ -34,23 +34,10 @@ class ImageSelectionContainer extends StatelessWidget {
         }
         if(state is UploadImageSuccessState){
           context.read<AddTaskCubit>().image = AppConstances.baseImageUrlViewer + state.imageUrl;
-          return CachedNetworkImage(
+          return CustomCachedImage(
             imageUrl: AppConstances.baseImageUrlViewer + state.imageUrl,
-            imageBuilder: (context, imageProvider) =>  Container(
-              width: 150.w,
-              height: 150.h,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                    AppConstances.baseImageUrlViewer + state.imageUrl,
-                  ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) =>
-            const Icon(Icons.error),
+            width: 150.w,
+            height: 150.h,
           );
         }
         return GestureDetector(

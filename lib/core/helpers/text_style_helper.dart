@@ -49,6 +49,11 @@ abstract class AppTextStyleHelper{
     fontSize: 16.sp,
     color: AppColorHelper.greyColor,
   );
+  static TextStyle font16MediumOrange = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColorHelper.orangeColor,
+  );
 
   static TextStyle font16BoldWhite = TextStyle(
     fontSize: 16.sp,
