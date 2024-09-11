@@ -38,10 +38,10 @@ class SignUpCubit extends Cubit<SignInState> {
         level: level,
       ),
     );
-    response.fold((success) {
+    response.fold((success) async {
       print('Success from sign in $success');
-      AppLocalSecureStorage.saveAccessToken(token: success.accessToken ?? '');
-      AppLocalSecureStorage.saveRefreshToken(token: success.refreshToken ?? '');
+      await AppLocalSecureStorage.saveAccessToken(token: success.accessToken ?? '');
+      await AppLocalSecureStorage.saveRefreshToken(token: success.refreshToken ?? '');
       emit(SignInSuccessState());
     }, (error) {
       emit(SignInErrorState(message: error.failure.message ?? 'please try again later'));

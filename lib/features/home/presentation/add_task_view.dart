@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasky/core/components/constances.dart';
 import 'package:tasky/core/components/custom_button.dart';
 import 'package:tasky/core/helpers/color_helper.dart';
 import 'package:tasky/core/helpers/text_style_helper.dart';
@@ -23,60 +24,65 @@ class AddTaskView extends StatelessWidget {
           appBar: const CustomAppBar(
             title: 'Add new task',
           ),
-          body: Padding(
-            padding: EdgeInsets.all(22.0.w),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const ImageSelectionContainer(),
-                  AddTaskField(
-                    label: 'Title',
-                    controller: context.read<AddTaskCubit>().title,
-                    hintText: 'Enter task title',
-                    isMultiline: false,
-                  ),
-                  AddTaskField(
-                    label: 'Description',
-                    controller: context.read<AddTaskCubit>().desc,
-                    hintText: 'Enter description title',
-                    isMultiline: true,
-                  ),
-                  AddTaskField(
-                      label: 'Priority',
-                      input: CustomPriorityContainer(
-                        callback: (value) {
-                          context.read<AddTaskCubit>().priority = value;
-                        },
-                        options: const ['Low', 'Medium', 'High'],
-                        label: 'Priority',
-                        hasFlagIcon: true,
+          body: Center(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width > AppConstances.maxWidth ? AppConstances.maxWidth.toDouble() : double.infinity,
+              child: Padding(
+                padding: EdgeInsets.all(22.0.w),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const ImageSelectionContainer(),
+                      AddTaskField(
+                        label: 'Title',
+                        controller: context.read<AddTaskCubit>().title,
+                        hintText: 'Enter task title',
+                        isMultiline: false,
                       ),
+                      AddTaskField(
+                        label: 'Description',
+                        controller: context.read<AddTaskCubit>().desc,
+                        hintText: 'Enter description title',
+                        isMultiline: true,
+                      ),
+                      AddTaskField(
+                          label: 'Priority',
+                          input: CustomPriorityContainer(
+                            callback: (value) {
+                              context.read<AddTaskCubit>().priority = value;
+                            },
+                            options: const ['Low', 'Medium', 'High'],
+                            label: 'Priority',
+                            hasFlagIcon: true,
+                          ),
+                      ),
+                      AddTaskField(
+                        label: 'Due date',
+                        input: CustomDateShower(
+                          clickable: true,
+                          hasBackground: false,
+                          callback: (value) {
+                            context.read<AddTaskCubit>().dueDate = value;
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      CustomButton(
+                        child: Text(
+                          'Add Task',
+                          style: AppTextStyleHelper.font19BoldWhite,
+                        ),
+                        onPressed: () {
+                          addTaskAction(
+                            context: context,
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  AddTaskField(
-                    label: 'Due date',
-                    input: CustomDateShower(
-                      clickable: true,
-                      hasBackground: false,
-                      callback: (value) {
-                        context.read<AddTaskCubit>().dueDate = value;
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  CustomButton(
-                    child: Text(
-                      'Add Task',
-                      style: AppTextStyleHelper.font19BoldWhite,
-                    ),
-                    onPressed: () {
-                      addTaskAction(
-                        context: context,
-                      );
-                    },
-                  ),
-                ],
+                ),
               ),
             ),
           ),

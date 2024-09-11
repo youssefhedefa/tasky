@@ -1,31 +1,37 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AppLocalSecureStorage{
 
-  static const storage = FlutterSecureStorage();
+  //static const storage = FlutterSecureStorage();
+  static SharedPreferences? storage;
+
+  static initStorage() async {
+    storage = await SharedPreferences.getInstance();
+    print('storage initialized');
+  }
 
   static const String accessTokenKey = 'access_token';
   static const String refreshTokenKey = 'refresh_token';
 
   static Future<void> saveAccessToken({required String token}) async {
-    await storage.write(key: accessTokenKey, value: token);
+    await storage!.setString( accessTokenKey, token);
   }
 
-  static Future<String?> getAccessToken() async {
-    return await storage.read(key: accessTokenKey);
+  static String getAccessToken() {
+    return storage?.getString(accessTokenKey) ?? '';
   }
 
   static Future<void> saveRefreshToken({required String token}) async {
-    await storage.write(key: refreshTokenKey, value: token);
+    await storage!.setString(refreshTokenKey,token);
   }
 
-  static Future<String?> getRefreshToken() async {
-    print('getting token ${await storage.read(key: refreshTokenKey)}');
-    return await storage.read(key: refreshTokenKey);
+  static String getRefreshToken() {
+    print('getting token ${storage!.getString(refreshTokenKey)}');
+    return storage?.getString(refreshTokenKey) ?? '';
   }
 
   static Future<void> clearAll() async {
-    await storage.deleteAll();
+    await storage!.clear();
     await getRefreshToken();
   }
 

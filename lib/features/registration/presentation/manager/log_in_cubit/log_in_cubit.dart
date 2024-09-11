@@ -20,9 +20,9 @@ class LogInCubit extends Cubit<LogInState> {
     final result = await repo.logIn(
         logInModel: LogInRequestModel(phone: phone, password: password));
     result.fold(
-      (success) {
-        AppLocalSecureStorage.saveAccessToken(token: success.accessToken ?? '');
-        AppLocalSecureStorage.saveRefreshToken(token: success.refreshToken ?? '');
+      (success) async {
+        await AppLocalSecureStorage.saveAccessToken(token: success.accessToken ?? '');
+        await AppLocalSecureStorage.saveRefreshToken(token: success.refreshToken ?? '');
         emit(LogInSuccessState());
       },
       (error) => emit(LogInErrorState(

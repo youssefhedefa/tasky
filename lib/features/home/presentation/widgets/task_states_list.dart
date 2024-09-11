@@ -13,7 +13,6 @@ class TaskStatesList extends StatefulWidget {
 }
 
 class _TaskStatesListState extends State<TaskStatesList> {
-
   int selectedIndex = 0;
 
   @override
@@ -22,16 +21,28 @@ class _TaskStatesListState extends State<TaskStatesList> {
       height: 40.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) =>  buildTaskState(index),
-          separatorBuilder: (context, index) => const SizedBox(width: 8,),
-          itemCount: 4,
+        itemBuilder: (context, index) => buildTaskState(index),
+        separatorBuilder: (context, index) => const SizedBox(
+          width: 8,
+        ),
+        itemCount: 4,
       ),
     );
   }
 
   buildTaskState(int index) {
-    List<String?> titles = [taskStatesValues[TaskStatesEnum.all], taskStatesValues[TaskStatesEnum.inProgress], taskStatesValues[TaskStatesEnum.waiting], taskStatesValues[TaskStatesEnum.finished]];
-    List<TaskStatesEnum?> statues = [TaskStatesEnum.all, TaskStatesEnum.inProgress, TaskStatesEnum.waiting, TaskStatesEnum.finished];
+    List<String?> titles = [
+      taskStatesValues[TaskStatesEnum.all],
+      taskStatesValues[TaskStatesEnum.inProgress],
+      taskStatesValues[TaskStatesEnum.waiting],
+      taskStatesValues[TaskStatesEnum.finished]
+    ];
+    List<TaskStatesEnum?> statues = [
+      TaskStatesEnum.all,
+      TaskStatesEnum.inProgress,
+      TaskStatesEnum.waiting,
+      TaskStatesEnum.finished
+    ];
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -46,4 +57,3 @@ class _TaskStatesListState extends State<TaskStatesList> {
     );
   }
 }
-
