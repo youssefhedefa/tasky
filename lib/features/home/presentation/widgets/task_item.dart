@@ -23,7 +23,7 @@ class TaskItem extends StatelessWidget {
         children: [
           CustomCachedImage(
             imageUrl: task.imageUrl,
-            width: 64.w,
+            width: 64,
             height: 64.h,
           ),
           const SizedBox(width: 12),

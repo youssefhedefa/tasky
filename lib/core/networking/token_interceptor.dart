@@ -29,7 +29,7 @@ class TokenInterceptor extends Interceptor {
     final options = Options(
       method: requestOptions.method,
       headers: {
-        'Authorization': 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+        'Authorization': 'Bearer ${AppLocalSecureStorage.getAccessToken()}',
       },
     );
     return dio.request<dynamic>(
@@ -43,9 +43,9 @@ class TokenInterceptor extends Interceptor {
 
   Future<bool> _refreshToken() async {
     final String accessToken =
-        await AppLocalSecureStorage.getAccessToken() ?? '';
+         AppLocalSecureStorage.getAccessToken();
     final String refreshToken =
-        await AppLocalSecureStorage.getRefreshToken() ?? '';
+         AppLocalSecureStorage.getRefreshToken();
     var headers = {
       'Authorization': 'Bearer $accessToken',
     };
