@@ -7,7 +7,6 @@ abstract class AppLocalSecureStorage{
 
   static initStorage() async {
     storage = await SharedPreferences.getInstance();
-    print('storage initialized');
   }
 
   static const String accessTokenKey = 'access_token';
@@ -32,7 +31,6 @@ abstract class AppLocalSecureStorage{
 
   static Future<void> clearAll() async {
     await storage!.clear();
-    await getRefreshToken();
   }
 
 }

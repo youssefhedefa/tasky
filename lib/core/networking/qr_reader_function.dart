@@ -11,7 +11,7 @@ class QRReaderRequestImpl {
 
    Future<Either<TasksResponseModel,Failure>> getTaskByQrCode({required String url}) async{
     var headers = {
-      'Authorization': 'Bearer ${await AppLocalSecureStorage.getAccessToken()}'
+      'Authorization': 'Bearer ${AppLocalSecureStorage.getAccessToken()}'
     };
     var response = await dio.request(
       url,

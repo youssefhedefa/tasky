@@ -38,7 +38,7 @@ class HomeRepoImple extends HomeRepo {
   Future<Either<ProfileEntity, Failure>> getProfile() async {
     try {
       final response = await apiServices.getProfile(
-          token: 'Bearer ${await AppLocalSecureStorage.getAccessToken()}');
+          token: 'Bearer ${AppLocalSecureStorage.getAccessToken()}');
       final profile = ProfileMapper.profileMapper(model: response);
       return Left(profile);
     } catch (e) {
@@ -50,7 +50,7 @@ class HomeRepoImple extends HomeRepo {
   Future<Either<UploadImageResponseModel, Failure>> uploadImage(
       {required FormData image}) async {
     final response = apiServices.uploadImage(
-        token: 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+        token: 'Bearer ${AppLocalSecureStorage.getAccessToken()}',
         image: image);
     try {
       return Left(await response);
@@ -64,7 +64,7 @@ class HomeRepoImple extends HomeRepo {
       {required AddTaskRequestModel model}) async {
     try {
       final response = await apiServices.createTask(
-          token: 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+          token: 'Bearer ${AppLocalSecureStorage.getAccessToken()}',
           request: model);
       return Left(response);
     } catch (e) {
@@ -76,7 +76,7 @@ class HomeRepoImple extends HomeRepo {
   Future<Either<List<TaskEntity>, Failure>> getTasks({int? page}) async {
     try {
       final response = await apiServices.getTasks(
-          token: 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+          token: 'Bearer ${AppLocalSecureStorage.getAccessToken()}',
           page: page ?? 1 );
       List<TaskEntity> tasks = TasksMapper.listTasksMapper(tasksResponseModel: response);
       return Left(tasks);
@@ -90,7 +90,7 @@ class HomeRepoImple extends HomeRepo {
       {required String id, required Map<String, dynamic> request}) async {
     try {
       await apiServices.editTask(
-          token: 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+          token: 'Bearer ${AppLocalSecureStorage.getAccessToken()}',
           id: id,
           request: request,
       );
@@ -104,7 +104,7 @@ class HomeRepoImple extends HomeRepo {
   Future<Either<bool, Failure>> deleteTask({required String id}) async {
     try{
       await apiServices.deleteTask(
-          token: 'Bearer ${await AppLocalSecureStorage.getAccessToken()}',
+          token: 'Bearer ${AppLocalSecureStorage.getAccessToken()}',
           id: id,
       );
       return const Left(true);

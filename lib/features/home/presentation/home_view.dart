@@ -120,10 +120,18 @@ class _HomeViewState extends State<HomeView> {
           });
         });
       }).catchError((e) {
-        print(e);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please try again!'),
+          ),
+        );
       });
     } on PlatformException catch (e) {
-      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please try again! ${e.message}'),
+        ),
+      );
     }
   }
 }
