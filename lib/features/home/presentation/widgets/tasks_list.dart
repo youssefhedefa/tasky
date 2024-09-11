@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasky/core/components/task_states_enum.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
 import 'package:tasky/features/home/domain/entities/task_entity.dart';
 import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tasks_cubit.dart';
@@ -7,7 +8,9 @@ import 'package:tasky/features/home/presentation/manager/get_tasks_cubit/get_tas
 import 'package:tasky/features/home/presentation/widgets/task_item.dart';
 
 class TasksList extends StatefulWidget {
-  const TasksList({super.key});
+  const TasksList({super.key, required this.state});
+
+  final TaskStatesEnum state;
 
   @override
   State<TasksList> createState() => _TasksListState();
@@ -63,18 +66,18 @@ class _TasksListState extends State<TasksList> {
           return ListView.separated(
             controller: scrollController,
             itemBuilder: (context, index) => TaskItem(
-              task: tasks[index],
+              task: tasksFilter()[index],
               onTap: (){
                 Navigator.of(context).pushNamed(
                   AppRoutingConstances.viewTask,
-                  arguments: tasks[index],
+                  arguments: tasksFilter()[index],
                 ).then((value) => context.read<GetTasksCubit>().getTasks());
               },
             ),
             separatorBuilder: (context, index) => const SizedBox(
               height: 12,
             ),
-            itemCount: tasks.length,
+            itemCount: tasksFilter().length,
           );
         }
         return const SizedBox();
@@ -82,16 +85,29 @@ class _TasksListState extends State<TasksList> {
       listener: (context,state) {
         if(state is GetTasksLoadingState){
           tasks.clear();
+          tasksFilter().clear();
         }
         if(state is GetTasksPaginationLoadingState){
           print('loading more');
         }
         if(state is GetTasksSuccessState){
           tasks.addAll(state.tasks);
+          tasksFilter();
         }
       },
     );
   }
+
+  tasksFilter() {
+    List<TaskEntity> newTasks = [...tasks];
+    if(widget.state == TaskStatesEnum.all){
+      return tasks;
+    }
+    print('state: ${taskStatesValues[widget.state]}');
+    newTasks = newTasks.where((element) => element.status == taskStatesValues[widget.state].toString().toLowerCase()).toList();
+    return newTasks;
+  }
+
 }
 
 

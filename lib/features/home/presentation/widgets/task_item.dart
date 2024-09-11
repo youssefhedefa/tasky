@@ -98,7 +98,7 @@ class TaskItem extends StatelessWidget {
         return const StateContainer(
           taskState: TaskStatesEnum.finished,
         );
-      case 'in_progress':
+      case 'in progress':
         return const StateContainer(
           taskState: TaskStatesEnum.inProgress,
         );

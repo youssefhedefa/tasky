@@ -4,7 +4,9 @@ import 'package:tasky/core/components/task_states_enum.dart';
 import 'package:tasky/features/home/presentation/widgets/task_list.dart';
 
 class TaskStatesList extends StatefulWidget {
-  const TaskStatesList({super.key});
+  const TaskStatesList({super.key, required this.onTaskStateSelected});
+
+  final Function onTaskStateSelected;
 
   @override
   State<TaskStatesList> createState() => _TaskStatesListState();
@@ -29,11 +31,13 @@ class _TaskStatesListState extends State<TaskStatesList> {
 
   buildTaskState(int index) {
     List<String?> titles = [taskStatesValues[TaskStatesEnum.all], taskStatesValues[TaskStatesEnum.inProgress], taskStatesValues[TaskStatesEnum.waiting], taskStatesValues[TaskStatesEnum.finished]];
+    List<TaskStatesEnum?> statues = [TaskStatesEnum.all, TaskStatesEnum.inProgress, TaskStatesEnum.waiting, TaskStatesEnum.finished];
     return GestureDetector(
       onTap: () {
         setState(() {
           selectedIndex = index;
         });
+        widget.onTaskStateSelected(statues[index]);
       },
       child: TaskState(
         title: titles[index]!,

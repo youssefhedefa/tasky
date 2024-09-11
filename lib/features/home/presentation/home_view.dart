@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasky/core/components/task_states_enum.dart';
 import 'package:tasky/core/helpers/color_helper.dart';
 import 'package:tasky/core/helpers/text_style_helper.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
@@ -8,8 +9,16 @@ import 'package:tasky/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:tasky/features/home/presentation/widgets/task_states_list.dart';
 import 'package:tasky/features/home/presentation/widgets/tasks_list.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+
+  TaskStatesEnum selectedState = TaskStatesEnum.all;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +69,20 @@ class HomeView extends StatelessWidget {
               style: AppTextStyleHelper.font14BoldGrey,
             ),
             const SizedBox(height: 16),
-            const TaskStatesList(),
+            TaskStatesList(
+              onTaskStateSelected: (state){
+                print(state);
+                setState(() {
+                  selectedState = state;
+                });
+              },
+            ),
             const SizedBox(height: 16),
-            const Expanded(child: TasksList()),
+            Expanded(
+                child: TasksList(
+                  state: selectedState,
+                ),
+            ),
           ],
         ),
       ),
