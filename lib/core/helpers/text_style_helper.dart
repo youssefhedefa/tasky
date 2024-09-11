@@ -1,0 +1,93 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasky/core/helpers/color_helper.dart';
+
+abstract class AppTextStyleHelper{
+  static TextStyle font24BoldBlack = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle font12RegularGrey = TextStyle(
+    fontSize: 12.sp,
+    color: AppColorHelper.greyColor,
+  );
+
+  static TextStyle font12MediumGrey = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColorHelper.greyColor,
+  );
+
+  static TextStyle font14MediumBlack = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle font14RegularBlack = TextStyle(
+    fontSize: 14.sp,
+  );
+
+  static TextStyle font14RegularGrey = TextStyle(
+    fontSize: 14.sp,
+    color: AppColorHelper.greyColor,
+  );
+
+  static TextStyle font14BoldGrey = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColorHelper.greyColor,
+  );
+
+  static TextStyle font14BoldPrimary = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColorHelper.primaryColor,
+  );
+
+  static TextStyle font16RegularGrey = TextStyle(
+    fontSize: 16.sp,
+    color: AppColorHelper.greyColor,
+  );
+  static TextStyle font16MediumOrange = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColorHelper.orangeColor,
+  );
+
+  static TextStyle font16BoldWhite = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
+  static TextStyle font16BoldBlack = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle font16BoldPrimary = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColorHelper.primaryColor,
+  );
+
+  static TextStyle font19BoldWhite = TextStyle(
+    fontSize: 19.sp,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
+  static TextStyle font19BoldPrimary = TextStyle(
+    fontSize: 19.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColorHelper.primaryColor,
+  );
+
+  static TextStyle font18BoldGrey = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColorHelper.greyColor,
+  );
+
+}
