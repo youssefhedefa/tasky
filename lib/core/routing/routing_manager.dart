@@ -5,6 +5,7 @@ import 'package:tasky/core/routing/custom_page_route.dart';
 import 'package:tasky/core/routing/routing_constances.dart';
 import 'package:tasky/features/home/presentation/home_view.dart';
 import 'package:tasky/features/home/presentation/manager/log_out_cubit/log_out_cubit.dart';
+import 'package:tasky/features/home/presentation/profile_view.dart';
 import 'package:tasky/features/on_boarding/presentation/on_boarding_view.dart';
 import 'package:tasky/features/registration/presentation/forms/log_in_form.dart';
 import 'package:tasky/features/registration/presentation/forms/sign_up.dart';
@@ -41,6 +42,11 @@ class AppRoutingManager {
             ],
               child: const HomeView(),
           ),
+        );
+      case AppRoutingConstances.profile:
+        return CustomPageRoute(
+          axisDirection: AxisDirection.left,
+          child: const ProfileView(),
         );
       default:
         return null;

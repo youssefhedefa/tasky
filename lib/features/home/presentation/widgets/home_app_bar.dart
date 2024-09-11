@@ -16,7 +16,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget{
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22.0,vertical: 12),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
@@ -25,7 +24,9 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget{
             ),
             const Spacer(),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutingConstances.profile);
+              },
               icon: const Icon(
                   Icons.account_circle_outlined,
               ),
